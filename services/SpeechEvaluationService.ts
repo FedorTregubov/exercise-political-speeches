@@ -20,16 +20,16 @@ export class SpeechEvaluationService {
   constructor () {
   }
 
-  static getByMostSpeechesFromSpecialYear (speakers: Speakers, targetyear = defaultOptions.targetYear) {
+  static getByMostSpeechesFromSpecialYear (speakers: Speakers, targetYear = defaultOptions.targetYear) {
     if (!Object.values(speakers).length) return null;
 
     const candidateEntry = Object.entries(speakers)
-      .filter(([_, speeches]) => {
+      .filter(([, speeches]) => {
         return speeches.some(speech => {
-          return new Date(speech.date).getFullYear() === targetyear
-        })
+          return new Date(speech.date).getFullYear() === targetYear;
+        });
       })
-      .sort(([_, a], [__, b]) => {
+      .sort(([, a], [, b]) => {
         return b.length - a.length;
       })[0];
 
@@ -48,10 +48,10 @@ export class SpeechEvaluationService {
     };
 
     const candidateEntry = Object.entries(speakers)
-      .filter(([_, speeches]) => {
+      .filter(([, speeches]) => {
         return speeches.some(({ topic }) => topic === targetTopic);
       })
-      .sort(([_, a], [__, b]) => {
+      .sort(([, a], [, b]) => {
         const aTopicsCount = getByTopic(a);
         const bTopicsCount = getByTopic(b);
 
@@ -68,7 +68,7 @@ export class SpeechEvaluationService {
       return arr.reduce((acc, curr) => acc += curr.words, 0);
     };
 
-    return Object.entries(speakers).sort(([_, a], [__, b]) => {
+    return Object.entries(speakers).sort(([, a], [, b]) => {
       const aCurrWordsCount = getWordsCount(a);
       const bCurrWordsCount = getWordsCount(b);
 

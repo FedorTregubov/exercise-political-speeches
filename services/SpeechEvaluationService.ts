@@ -1,7 +1,7 @@
-import { 
-  Speakers, 
-  Speech, 
-  DICTIONARY_TARGET_SPEECH_TOPICS, 
+import {
+  Speakers,
+  Speech,
+  DICTIONARY_TARGET_SPEECH_TOPICS,
 } from '../models/Speech';
 
 export interface SpeechEvaluationServiceOptions {
@@ -33,7 +33,7 @@ export class SpeechEvaluationService {
         return b.length - a.length;
       })[0];
 
-      return candidateEntry ? candidateEntry[0] : null; 
+      return candidateEntry ? candidateEntry[0] : null;
   }
 
   static getByMostPublicTopic (speakers: Speakers, targetTopic = defaultOptions.targetTopic) {
@@ -42,7 +42,7 @@ export class SpeechEvaluationService {
     const getByTopic = (arr: Speech[]) => {
       return arr.reduce((acc, curr) => {
         acc = curr.topic === targetTopic ? acc += 1 : acc;
-        
+
         return acc;
       }, 0);
     };
@@ -57,7 +57,7 @@ export class SpeechEvaluationService {
 
         return bTopicsCount - aTopicsCount;
       })[0];
-    
+
     return candidateEntry ? candidateEntry[0] : null;
   }
 
@@ -65,16 +65,16 @@ export class SpeechEvaluationService {
     if (!Object.values(speakers).length) return null;
 
     const getWordsCount = (arr: Speech[]): number => {
-      return arr.reduce((acc, curr) => acc += curr.words, 0); 
+      return arr.reduce((acc, curr) => acc += curr.words, 0);
     };
 
     return Object.entries(speakers).sort(([_, a], [__, b]) => {
-      const aCurrWordsCount = getWordsCount(a); 
-      const bCurrWordsCount = getWordsCount(b); 
-      
-      return isSearchingMinimum 
-        ? aCurrWordsCount - bCurrWordsCount 
+      const aCurrWordsCount = getWordsCount(a);
+      const bCurrWordsCount = getWordsCount(b);
+
+      return isSearchingMinimum
+        ? aCurrWordsCount - bCurrWordsCount
         : bCurrWordsCount - aCurrWordsCount;
     })[0][0];
-  } 
+  }
 }

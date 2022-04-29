@@ -33,7 +33,7 @@ router.get('/', (req: Request, res: Response): void => {
       .on('data', (data: SpeechInput) => {
         const speech = new Speech(data);
 
-        speakers[data.speaker] = !!speakers[data.speaker]
+        speakers[data.speaker] = speakers[data.speaker]
           ? [...speakers[data.speaker], speech]
           : [speech];
       })
@@ -46,7 +46,7 @@ router.get('/', (req: Request, res: Response): void => {
       });
     });
   } catch (e) {
-    res.status(500).json({ 
+    res.status(500).json({
       message: 'Something went wrong. Maybe there is some problem with your CSV files.',
     });
   }

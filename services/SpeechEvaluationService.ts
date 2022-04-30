@@ -1,8 +1,8 @@
 import {
   Speakers,
-  Speech,
+  SpeechModel,
   DICTIONARY_TARGET_SPEECH_TOPICS,
-} from '../models/Speech';
+} from '../models';
 
 export interface SpeechEvaluationServiceOptions {
   targetYear: number,
@@ -39,7 +39,7 @@ export class SpeechEvaluationService {
   static getByMostPublicTopic (speakers: Speakers, targetTopic = defaultOptions.targetTopic) {
     if (!Object.values(speakers).length) return null;
 
-    const getByTopic = (arr: Speech[]) => {
+    const getByTopic = (arr: SpeechModel[]) => {
       return arr.reduce((acc, curr) => {
         acc = curr.topic === targetTopic ? acc += 1 : acc;
 
@@ -64,7 +64,7 @@ export class SpeechEvaluationService {
   static getByWordsCount (speakers: Speakers, isSearchingMinimum = defaultOptions.isSearchingMinimum) {
     if (!Object.values(speakers).length) return null;
 
-    const getWordsCount = (arr: Speech[]): number => {
+    const getWordsCount = (arr: SpeechModel[]): number => {
       return arr.reduce((acc, curr) => acc += curr.words, 0);
     };
 

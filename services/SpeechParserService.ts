@@ -46,7 +46,7 @@ export class SpeechParserService {
 
         readStream.on('error', () => {
           reject('Failed to read url.');
-        })
+        });
       });
     });
   }

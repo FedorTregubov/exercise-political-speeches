@@ -11,9 +11,9 @@ export interface SpeechInput {
   words: number;
 }
 
-export type Speakers = { [key: string]: Speech[] }; 
+export type Speakers = { [key: string]: SpeechModel[] };
 
-export class Speech {
+export class SpeechModel {
   public topic = '';
   public date!: Date;
   public words!: number;
@@ -23,4 +23,10 @@ export class Speech {
     this.date = model.date;
     this.words = model.words;
   }
+}
+
+export interface SpeechesEvaluationResponse {
+  mostSpeeches: null | string;
+  mostSecurity: null | string;
+  leastWordy: null | string;
 }

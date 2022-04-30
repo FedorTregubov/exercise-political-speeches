@@ -1,4 +1,4 @@
-import { Speakers, SpeechInput, Speech } from '../models/Speech';
+import { Speakers, SpeechInput, SpeechModel } from '../models';
 import fs from 'fs';
 import csv from 'csv-parser';
 
@@ -34,7 +34,7 @@ export class SpeechParserService {
               reject('Failed to read csv.');
             })
             .on('data', (data: SpeechInput) => {
-              const speech = new Speech(data);
+              const speech = new SpeechModel(data);
 
               this.speakers[data.speaker] = this.speakers[data.speaker]
                 ? [...this.speakers[data.speaker], speech]

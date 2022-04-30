@@ -1,21 +1,12 @@
 import { Router, Request, Response } from 'express';
 import { SpeechEvaluationService } from '../services/SpeechEvaluationService';
 import { SpeechParserService } from '../services/SpeechParserService';
+import { ErrorResponse, SpeechesEvaluationResponse } from '../models';
 
 const router = Router();
 
-export interface EvaluationResponse {
-  mostSpeeches: null | string;
-  mostSecurity: null | string;
-  leastWordy: null | string;
-}
-
-export interface ErrorResponse {
-  message?: string,
-}
-
-router.get('/', (req: Request, res: Response<ErrorResponse | EvaluationResponse>) => {
-  let result: EvaluationResponse = {
+router.get('/', (req: Request, res: Response<ErrorResponse | SpeechesEvaluationResponse>) => {
+  let result: SpeechesEvaluationResponse = {
     mostSpeeches: null,
     mostSecurity: null,
     leastWordy: null,

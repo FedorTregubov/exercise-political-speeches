@@ -10,7 +10,9 @@ export class SpeechParserService {
   public constructor (urls: string[]) {
     this.urlPromises = urls.map((url) => {
       return new Promise((resolve, reject) => {
-        fs.createReadStream(url)
+        const readStream = fs.createReadStream(url);
+
+        readStream
           .pipe(csv({
             mapHeaders: ({ header }) => {
               return header.trim().toLowerCase();
@@ -29,7 +31,7 @@ export class SpeechParserService {
             },
           }))
             .on('error', () => {
-              reject('Failed to read url.');
+              reject('Failed to read csv.');
             })
             .on('data', (data: SpeechInput) => {
               const speech = new Speech(data);
@@ -41,6 +43,10 @@ export class SpeechParserService {
             .on('end', () => {
               resolve(this.speakers);
             });
+
+        readStream.on('error', () => {
+          reject('Failed to read url.');
+        })
       });
     });
   }

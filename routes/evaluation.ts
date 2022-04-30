@@ -9,7 +9,12 @@ export interface EvaluationResponse {
   mostSecurity: null | string;
   leastWordy: null | string;
 }
-router.get('/', (req: Request, res: Response<EvaluationResponse>) => {
+
+export interface ErrorResponse {
+  message?: string,
+}
+
+router.get('/', (req: Request, res: Response<ErrorResponse | EvaluationResponse>) => {
   let result: EvaluationResponse = {
     mostSpeeches: null,
     mostSecurity: null,
@@ -33,8 +38,8 @@ router.get('/', (req: Request, res: Response<EvaluationResponse>) => {
     };
 
     return res.json(result);
-  }).catch((e) => {
-    console.log(e);
+  }).catch((error) => {
+    return res.status(500).json({ message: error.message });
   });
 });
 

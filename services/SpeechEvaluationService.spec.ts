@@ -1,45 +1,85 @@
 import { SpeechEvaluationService } from './SpeechEvaluationService';
+import { speakersMock } from '../mocks/speeches.mock';
+import { DICTIONARY_TARGET_SPEECH_TOPICS } from '../models';
+
+const speakersMockCloned = JSON.parse(JSON.stringify(speakersMock));
 
 describe('SpeechEvaluationService', () => {
-  describe.skip('SpeechEvaluationService.getByMostSpeechesFromSpecialYear', () => {
-    it.todo('input obj should be the same after method call', () => {
+  describe('SpeechEvaluationService.getByMostSpeechesFromSpecialYear', () => {
+    const speakersMockCloned = JSON.parse(JSON.stringify(speakersMock));
+
+    it.concurrent('returns null, if empty obj passed', () => {
+      expect(
+        SpeechEvaluationService.getByMostSpeechesFromSpecialYear({}),
+      ).toBe(null);
     });
 
-    it.todo('return null, if empty obj passed', () => {
+    it.concurrent('returns null, if there is no speeches in specified year', () => {
+      expect(
+        SpeechEvaluationService.getByMostSpeechesFromSpecialYear(speakersMock, 2000),
+      ).toBe(null);
     });
 
-    it.todo('return null, if there is no speeches in specified year', () => {
+    const expectedSpeakerName = 'Alexander Abel';
+    it.concurrent(`returns speaker name ${expectedSpeakerName}, if there is most person with most speeches in specified year`, () => {
+      expect(
+        SpeechEvaluationService.getByMostSpeechesFromSpecialYear(speakersMock),
+      ).toBe(expectedSpeakerName);
     });
 
-    it.todo('return speaker name, if there is most person with speeches in specified year', () => {
+    it.skip('input obj should be the same after method call', () => { // TODO
+      expect(speakersMock).toEqual(speakersMockCloned);
     });
   });
 
-  describe.skip('SpeechEvaluationService.getByMostPublicTopic', () => {
-    it.todo('input obj should be the same after method call', () => {
+  describe('SpeechEvaluationService.getByMostPublicTopic', () => {
+    it.concurrent('returns null, if empty obj passed', () => {
+      expect(
+        SpeechEvaluationService.getByMostPublicTopic({}, DICTIONARY_TARGET_SPEECH_TOPICS.INTERNAL_SECURITY),
+      ).toBe(null);
     });
 
-    it.todo('return null, if empty obj passed', () => {
+    it.concurrent('returns null, if there is no speeches in specified topic', () => {
+      expect(
+        SpeechEvaluationService.getByMostPublicTopic({}, 'bla-bla-bla topic' as DICTIONARY_TARGET_SPEECH_TOPICS),
+      ).toBe(null);
     });
 
-    it.todo('return null, if there is no speeches in specified topic', () => {
+    const expectedSpeakerName = 'Alexander Abel';
+    it.concurrent(`returns speaker name ${expectedSpeakerName}, if there is most person with speeches in specified topic`, () => {
+      expect(
+        SpeechEvaluationService.getByMostPublicTopic(speakersMock, DICTIONARY_TARGET_SPEECH_TOPICS.INTERNAL_SECURITY),
+      ).toBe(expectedSpeakerName);
     });
 
-    it.todo('return speaker name, if there is most person with speeches in specified topic', () => {
+    it.skip('input obj should be the same after method call', () => { // TODO
+      expect(speakersMock).toEqual(speakersMockCloned);
     });
   });
 
-  describe.skip('SpeechEvaluationService.getByWordsCount', () => {
-    it.todo('input obj should be the same after method call', () => {
+  describe('SpeechEvaluationService.getByWordsCount', () => {
+    it.concurrent('returns null, if empty obj passed', () => {
+      expect(
+        SpeechEvaluationService.getByWordsCount({}),
+      ).toBe(null);
     });
 
-    it.todo('return null if empty obj passed', () => {
+    const expectedLeastWordySpeakerName = 'Bernhard Belling';
+    it.concurrent(`returns least wordy person name "${expectedLeastWordySpeakerName}"`, () => {
+      expect(
+        SpeechEvaluationService.getByWordsCount(speakersMock),
+      ).toBe(expectedLeastWordySpeakerName);
     });
 
-    it.todo('return least wordy person', () => {
+    const expectedMostWordySpeakerName = 'Caesare Collins';
+    it.concurrent(`returns most wordy person name "${expectedMostWordySpeakerName}"`, () => {
+      expect(
+        SpeechEvaluationService.getByWordsCount(speakersMock, false),
+      ).toBe(expectedMostWordySpeakerName);
     });
 
-    it.todo('return most wordy person', () => {
+    it.skip('input obj should be the same after method call', () => { // TODO
+      expect(speakersMock).toEqual(speakersMockCloned);
     });
   });
 });

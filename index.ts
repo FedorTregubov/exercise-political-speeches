@@ -4,7 +4,7 @@ import { loggerMiddleware } from './middleware/logger';
 import evaluationRoutes from './routes/evaluation';
 import { errorMiddleware } from './middleware/error';
 
-// enviroment
+// environment
 dotenv.config();
 const port = process.env.PORT;
 
@@ -18,7 +18,7 @@ app.get('/', (req: Request, res: Response) => {
   res.send('Express + TypeScript Server');
 });
 
-// regiter routes
+// register routes
 app.use('/evaluation', evaluationRoutes);
 // 404 error-handler
 app.use(errorMiddleware);

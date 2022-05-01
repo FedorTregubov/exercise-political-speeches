@@ -2,6 +2,11 @@ import { Speakers, SpeechInput, SpeechModel } from '../models';
 import fs from 'fs';
 import csv from 'csv-parser';
 
+export enum DICTIONARY_SPEECH_PARSER_SERVICE_ERRORS {
+  'CSV' = 'Failed to read csv.',
+  'URL' = 'Failed to read url.',
+}
+
 export class SpeechParserService {
   public urlPromises: Promise<Speakers>[] = [];
 
@@ -30,7 +35,7 @@ export class SpeechParserService {
             },
           }))
             .on('error', () => {
-              reject('Failed to read csv.');
+              reject(DICTIONARY_SPEECH_PARSER_SERVICE_ERRORS.CSV);
             })
             .on('data', (data: SpeechInput) => {
               const speech = new SpeechModel(data);
@@ -44,7 +49,7 @@ export class SpeechParserService {
             });
 
         readStream.on('error', () => {
-          reject('Failed to read url.');
+          reject(DICTIONARY_SPEECH_PARSER_SERVICE_ERRORS.URL);
         });
       });
     });

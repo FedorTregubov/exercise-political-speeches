@@ -1,5 +1,5 @@
 import { SpeechEvaluationService } from './SpeechEvaluationService';
-import { speakersMock } from '../mocks/speeches.mock';
+import { speakersMock } from '../mocks/speakers.mock';
 import { DICTIONARY_TARGET_SPEECH_TOPICS } from '../models';
 
 const speakersMockCloned = JSON.parse(JSON.stringify(speakersMock));

@@ -22,9 +22,8 @@ export class SpeechParserService {
                 case 'words':
                   return parseInt(value, 10);
                 case 'topic':
-                  return value.trim();
                 case 'date':
-                  return new Date(value);
+                  return value.trim();
                 default:
                   return value;
               }

@@ -52,7 +52,9 @@ npm run lint
 ```
 
 ## Test
-_TODO: add some tests_
+```sh
+npm run test
+```
 
 ## Build
 Type-Check, Compile and Minify for Production

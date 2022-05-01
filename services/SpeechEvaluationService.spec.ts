@@ -27,7 +27,7 @@ describe('SpeechEvaluationService', () => {
       ).toBe(expectedSpeakerName);
     });
 
-    it.skip('input obj should be the same after method call', () => { // TODO
+    it('input obj should be the same after method call', () => {
       expect(speakersMock).toEqual(speakersMockCloned);
     });
   });
@@ -52,7 +52,7 @@ describe('SpeechEvaluationService', () => {
       ).toBe(expectedSpeakerName);
     });
 
-    it.skip('input obj should be the same after method call', () => { // TODO
+    it('input obj should be the same after method call', () => {
       expect(speakersMock).toEqual(speakersMockCloned);
     });
   });
@@ -78,7 +78,7 @@ describe('SpeechEvaluationService', () => {
       ).toBe(expectedMostWordySpeakerName);
     });
 
-    it.skip('input obj should be the same after method call', () => { // TODO
+    it('input obj should be the same after method call', () => {
       expect(speakersMock).toEqual(speakersMockCloned);
     });
   });

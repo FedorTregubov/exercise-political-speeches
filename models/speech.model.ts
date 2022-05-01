@@ -7,15 +7,15 @@ export enum DICTIONARY_TARGET_SPEECH_TOPICS {
 export interface SpeechInput {
   speaker: string;
   topic: DICTIONARY_TARGET_SPEECH_TOPICS;
-  date: Date;
+  date: string;
   words: number;
 }
 
 export type Speakers = { [key: string]: SpeechModel[] };
 
 export class SpeechModel {
-  public topic = '';
-  public date!: Date;
+  public topic!: string ;
+  public date!: string;
   public words!: number;
 
   constructor (model: SpeechInput) {

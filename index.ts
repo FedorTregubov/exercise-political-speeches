@@ -1,6 +1,5 @@
 import express, { Express, Request, Response } from 'express';
 import dotenv from 'dotenv';
-import { loggerMiddleware } from './middleware/logger';
 import evaluationRoutes from './routes/evaluation';
 import { errorMiddleware } from './middleware/error';
 
@@ -8,24 +7,26 @@ import { errorMiddleware } from './middleware/error';
 dotenv.config();
 const port = process.env.PORT;
 
-const app: Express = express();
+export function createServer (): Express {
+  const app: Express = express();
 
-// middleware
-app.use(express.json());
-app.use(loggerMiddleware);
+  // middleware
+  app.use(express.json());
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Express + TypeScript Server');
-});
+  // register routes
+  app.get('/', (req: Request, res: Response) => {
+    res.send('Express + TypeScript Server');
+  });
+  app.use('/evaluation', evaluationRoutes);
+  // 404 error-handler
+  app.use(errorMiddleware);
 
-// register routes
-app.use('/evaluation', evaluationRoutes);
-// 404 error-handler
-app.use(errorMiddleware);
+  return app;
+}
 
-function start ():void {
+export function start ():void {
   try {
-    app.listen(port, () => {
+    createServer().listen(port, () => {
       console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
     });
   } catch (error) {

@@ -11,7 +11,7 @@ describe('SpeechParserService', () => {
   });
 
   it.concurrent('throws exception, if there is some error in the input file', () => {
-    const speechParserService = new SpeechParserService(['./mocks/speeches-mock-exception.csv']);
+    const speechParserService = new SpeechParserService(['./mocks/speeches-1.mock.csv']);
 
     speechParserService.run().catch((e) => {
       expect(e.message.trim()).toMatch(DICTIONARY_SPEECH_PARSER_SERVICE_ERRORS.CSV);
@@ -19,7 +19,7 @@ describe('SpeechParserService', () => {
   });
 
   it.concurrent('throws exception, if there is some error in the input URL', () => {
-    const speechParserService = new SpeechParserService(['https://localohost/error-exception.csv']);
+    const speechParserService = new SpeechParserService(['./mocks/speeches-exception.mock.csv']);
 
     speechParserService.run().catch((e) => {
       expect(e.message.trim()).toMatch(DICTIONARY_SPEECH_PARSER_SERVICE_ERRORS.URL);
@@ -27,7 +27,7 @@ describe('SpeechParserService', () => {
   });
 
   it.concurrent('returns speakers object properly if 1 file passed', () => {
-    const speechParserService = new SpeechParserService(['./mocks/speeches-mock-1.csv']);
+    const speechParserService = new SpeechParserService(['./mocks/speeches-1.mock.csv']);
 
     speechParserService.run().then((speakers) => {
       expect(speakers).toEqual(speakersMockSingleFile);
@@ -36,8 +36,8 @@ describe('SpeechParserService', () => {
 
   it.concurrent('returns speakers object properly if multiple files passed', () => {
     const speechParserService = new SpeechParserService([
-      './mocks/speeches-mock-1.csv',
-      './mocks/speeches-mock-2.csv',
+      './mocks/speeches-1.mock.csv',
+      './mocks/speeches-2.mock.csv',
     ]);
 
     speechParserService.run().then((speakers) => {
